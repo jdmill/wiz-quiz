@@ -1,0 +1,58 @@
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header h1 {
+    font-size: 3vw;
+}
+
+.flex-spacer {
+    flex-basis: 70%;
+    min-width: 2vw;
+}
+
+#quiz-box {
+    display: flex;
+    flex-basis: 70%;
+    justify-content: center;
+    padding: 2vh 7vw;
+}
+
+#quiz-box h2 {
+    text-align: center;
+}
+
+#quiz-box p {
+    text-align: center;
+}
+
+/*Start button on start page*/
+#start-button{
+    display: flex;
+    justify-content: center;
+
+}
+
+#start-button button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.hide {
+    display: none;
+    visibility: hidden;
+}
+
+.show {
+    display: block;
+    visibility: visible;
+}
