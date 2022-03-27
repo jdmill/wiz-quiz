@@ -28,23 +28,31 @@ var hideScreen = document.getElementsByClassName('hide');
 //index of current question
 var questionIndex = 0;
 
+//creates header and div elements
 var h2El = document.createElement('h2');
 var divEl = document.createElement('div');
-var buttonEl = document.createElement('button')
 
+//creates button elements for questions
+var q1 = document.createElement('button');
+var q2 = document.createElement('button');
+var q3 = document.createElement('button');
+var q4 = document.createElement('button');
+
+//creates an array of button creator elements
+var q = [q1, q2,q3, q4];
 
 
 //startButton event Listener
-startButton.addEventListener("click", function(){
-    startScreen.setAttribute("class", "hide");
+    startButton.addEventListener("click", function(){
     qScreen.removeAttribute("class", "hide");
+    startScreen.setAttribute("class", "hide");
+
     countdown();
     getQuestion();
 });
 
 //getQuestion function - retrieves a question from the questions object
 function getQuestion() {
-
     //sets current question to question index
     var currentQuestion = questions[questionIndex];
     console.log(questions[questionIndex].question);
@@ -52,11 +60,19 @@ function getQuestion() {
 
     //sets h2 question to question value in questions object
     qQuestion.textContent = currentQuestion.question;
-    console.log(qQuestion);
-    //qQuestion.appendChild(h2El);
+    
+    //appends the questions to the question header element
+    qQuestion.appendChild(h2El);
 
-    console.log(questions[1].options);
-   
+    //creates a current options array
+    var currentOptions = questions[1].options;
+
+    //creates a button for each question
+    for(var i = 0; i < currentOptions.length; i++){
+        q[i].textContent = i + 1 + ": " + currentOptions[i];
+        qChoices.appendChild(q[i]);
+        console.log(currentOptions[i]);
+    }
 }
 
 
