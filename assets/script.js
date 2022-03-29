@@ -1,5 +1,5 @@
 //Int Vars
-var timeLeft = 15;
+var timeLeft = 20;
 var questionIndex = 0;
 var score = 0;
 
@@ -16,6 +16,10 @@ var scoreMessage = document.getElementById("score-message");
 var feedbackArea = document.getElementById("feedback-area");
 var submitButton = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
+var olEl = document.getElementById("highscores");
+var scoreScreen = document.getElementById("high-score-screen");
+var highScoresButton = document.getElementById("high-score-button");
+var playAgainButton = document.getElementById("play-again");
 
 //get Element that hides windows
 var hideScreen = document.getElementsByClassName("hide");
@@ -24,6 +28,7 @@ var hideScreen = document.getElementsByClassName("hide");
 var pEl = document.createElement("p");
 var h2El = document.createElement("h2");
 var divEl = document.createElement("div");
+var liEl =document.createElement("li");
 
 //creates button elements for questions
 var q1 = document.createElement("button");
@@ -33,7 +38,6 @@ var q4 = document.createElement("button");
 
 //creates an array of button creator elements
 var q = [q1, q2, q3, q4];
-
 
 //startButton event Listener
 startButton.addEventListener("click", function () {
@@ -45,31 +49,45 @@ startButton.addEventListener("click", function () {
 });
 
 //adds functionality to the submit button
-submitButton.addEventListener("click", function(){
-    var initials = initialsEl.value;
+submitButton.addEventListener("click", function () {
+  var initials = initialsEl.value;
+  var newScore = {
+    userScore: score,
+    userInitials: initials,
+  };
 
-    //parses the highscores object in local storage
-    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+  //parses the highscores object in local storage
+  var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+  console.log(highscores);
 
-    //creates an object for the new score
-    var newScore = {
-        userScore: score,
-        userInitials: initials
-    }
+  console.log(newScore);
+  //pushes the new score object to the highscores object
+  highscores.push(newScore);
 
-    //pushes the new score object to the highscores object
-    highscores.push(newScore);
+  
+  for (var i = 0; i < highscores.length; i++){
+    liEl.textContent = score.userInitials + ": " + score.userScore;
+    olEl.appendChild(liEl);
+  }
+  //sets the updated array to local Storage
+  endScreen.setAttribute("class", "hide");
+  scoreScreen.removeAttribute("class","hide");
 
-    //sets the updated array to local Storage
-    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+});
 
-    //changes to the highScores.html page
-    window.location.href = "highScores.html";
+highScoresButton.addEventListener("click", function (){
+  startScreen.setAttribute("class", "hide");
+  endScreen.setAttribute("class", "hide");
+  scoreScreen.removeAttribute("class","hide");
+});
+
+playAgainButton.addEventListener("click", function(){
+  scoreScreen.setAttribute("class", "hide");
+  startScreen.removeAttribute("class","hide");
 });
 
 //getQuestion function - retrieves a question from the questions object
 function getQuestion() {
-
   //Finishes game if all questions have been answered
   if (questionIndex === Object.keys(questions).length) {
     qScreen.setAttribute("class", "hide");
@@ -115,6 +133,7 @@ function checkAnswer() {
     feedback = "Incorrect!";
   }
 
+  //sets feedback area text content
   feedbackArea.textContent = feedback;
   feedbackArea.appendChild(pEl);
   feedbackArea.removeAttribute("class", "hide");
@@ -122,14 +141,16 @@ function checkAnswer() {
 
   getQuestion();
   resetFeed(resetTime);
-  console.log(questionIndex);
+  //console.log(questionIndex);
 }
 
-function logHighscores() {
-    var highScores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-
-    console.log(highScores);
-    
+function logHighScores(score) {
+  var highScores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+  
+  liEl.textContent = score.initials + ": " + score.score;
+  olEl.appendChild(liEl);
+  console.log(highScores);
+  //highScreen.removeAttribute("class", "hide");
 }
 
 //timer function
@@ -165,6 +186,3 @@ function resetFeed(time) {
     }
   }, 1000);
 }
-
-
-logHighscores();

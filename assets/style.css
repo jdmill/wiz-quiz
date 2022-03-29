@@ -69,4 +69,16 @@ header h1 {
     border-radius: 5px;
     padding: 2px 10px;
     display: block;
+    background-color: #549556;
+    border: none;
+    font-size: large;
+    font-weight: bolder;
+    color:white;
 }
+
+#high-score-button {
+    border: none;
+    font-size: large;
+    font-weight: bolder;
+}
+

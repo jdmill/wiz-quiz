@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-        <h1><a href='highScores.html'>High Scores</a></h1>
+        <h1><button id="high-score-button">High Scores</button></h1>
         <div class='flex-spacer'></div>
         <h1>Time: <span id='timer'>0</span></h1>
     </header>
@@ -46,9 +46,18 @@
           <p id='score-message'></p>
           <p>Enter Initials: <input type='text' id='initials'/>
             <button id="submit">Save Score</button>
-          </p>
-          
+          </p> 
       </div>
+
+      <!--High Score Screen-->
+      <div id = 'high-score-screen' class = 'hide'>
+          <h1>Highscores</h1>
+          <ol id="highscores"></ol> 
+          <div>
+            <button id="play-again">Play Again</button>
+          </div> 
+      </div>
+
     </div>
 	<script src='./assets/script.js'></script>
   <script src='./assets/questions.js'></script>
