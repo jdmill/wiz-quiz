@@ -1,5 +1,5 @@
 //Int Vars
-var timeLeft = 20;
+var timeLeft = 60;
 var questionIndex = 0;
 var score = 0;
 
@@ -51,25 +51,26 @@ startButton.addEventListener("click", function () {
 //adds functionality to the submit button
 submitButton.addEventListener("click", function () {
   var initials = initialsEl.value;
-  var newScore = {
-    userScore: score,
-    userInitials: initials,
-  };
 
   //parses the highscores object in local storage
   var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
   console.log(highscores);
 
-  console.log(newScore);
+  //creates an object for the new score
+  var newScore = {
+    userScore: score,
+    userInitials: initials,
+  };
+
   //pushes the new score object to the highscores object
   highscores.push(newScore);
 
-  
-  for (var i = 0; i < highscores.length; i++){
-    liEl.textContent = score.userInitials + ": " + score.userScore;
-    olEl.appendChild(liEl);
-  }
   //sets the updated array to local Storage
+  highscores.forEach(function(score){
+    liEl.textContent = score.initials + ": " + score.score;
+    olEl.appendChild(liEl);
+  })
+
   endScreen.setAttribute("class", "hide");
   scoreScreen.removeAttribute("class","hide");
 
